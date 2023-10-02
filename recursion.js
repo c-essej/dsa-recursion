@@ -31,7 +31,7 @@ function everyOther(str) {
 function find(arr, val) {
   if (arr.length === 0) return false;
 
-  return Boolean((arr[0] === val) + find(arr.slice(1), val))
+  return Boolean((arr[0] === val) + find(arr.slice(1), val));
 
 }
 
@@ -40,15 +40,15 @@ function find(arr, val) {
 function isPalindrome(str) {
   if (str.length === 0) return true;
   return Boolean(
-    (str[0] === str[str.length -1]) * isPalindrome(str.slice(1, str.length -1))
-    );
+    (str[0] === str[str.length - 1]) * isPalindrome(str.slice(1, str.length - 1))
+  );
 }
 
 /** revString: return a copy of a string, but in reverse. */
 
 function revString(str) {
   if (str.length === 0) return '';
-  return str[str.length -1] + revString(str.slice(0, str.length-1));
+  return str[str.length - 1] + revString(str.slice(0, str.length - 1));
 
 }
 
@@ -56,9 +56,9 @@ function revString(str) {
 
 function findIndex(arr, val) {
   if (arr.length === 0) return -1; // reached the end, return -1
-  if (arr[0] === val) return 0 // don't keep looking
+  if (arr[0] === val) return 0; // don't keep looking
   let nextVal = findIndex(arr.slice(1), val); // check next value
-  if (nextVal === -1 ) return -1; // if it's -1, nothing was found, return that
+  if (nextVal === -1) return -1; // if it's -1, nothing was found, return that
   return nextVal + 1; // add 1 + the next value
 }
 
@@ -106,7 +106,7 @@ function gatherStrings(obj) {
       typeof obj[key] === 'object'
       && obj[key] !== null
       && !Array.isArray(obj[key])
-      ){
+    ) {
       result = result.concat(gatherStrings(obj[key]));
     }
   }
@@ -119,21 +119,21 @@ function gatherStrings(obj) {
  * return true if val is in array, false if not present). */
 
 function binarySearch(arr, val) {
-  console.log('binarySearch called with arr:', arr)
-  console.log('binarySearch called with val:', val)
+  // console.log('binarySearch called with arr:', arr)
+  // console.log('binarySearch called with val:', val)
   if (arr.length === 0) return false;
 
   let middleIdx = Math.floor(arr.length / 2);
   let middleVal = arr[middleIdx];
-  if (val === middleVal){
-    console.log('Match found, returning true')
+  if (val === middleVal) {
+    // console.log('Match found, returning true')
     return true;
-  } else if (middleVal > val){
-    console.log('Value provided is less than the middleVal')
-    return binarySearch(arr.slice(0, middleIdx), val)
+  } else if (middleVal > val) {
+    // console.log('Value provided is less than the middleVal')
+    return binarySearch(arr.slice(0, middleIdx), val);
   } else {
-    console.log('Value provided is greater than the middleVal')
-    return binarySearch(arr.slice(middleIdx+1, arr.length), val)
+    // console.log('Value provided is greater than the middleVal')
+    return binarySearch(arr.slice(middleIdx + 1, arr.length), val);
   }
 }
 
@@ -142,8 +142,44 @@ function binarySearch(arr, val) {
  * return the index of that value (or -1 if val is not present). */
 
 function binarySearchIndex(arr, val) {
+//   console.log('binarySearch called with arr:', arr);
+//   console.log('binarySearch called with val:', val);
+
+  if (arr.length === 0) {
+    // console.log("reached end (length = 0), returning -1");
+    return -1;
+  }
+
+  let middleIdx = Math.floor(arr.length / 2);
+  // console.log('Middle Index is:', middleIdx);
+
+  let middleVal = arr[middleIdx];
+  // console.log('Middle Value is:', middleVal);
+
+  if (val === middleVal) {
+    // console.log('Match found, returning middleIdx:', middleIdx);
+    return middleIdx;
+  } else if (middleVal > val) {
+    // console.log('Value provided is less than the middleVal');
+    let result = binarySearchIndex(arr.slice(0, middleIdx), val);
+    if (result === -1) { return -1 }
+    // console.log("going to return result:", result);
+    return result;
+  } else {
+    // console.log('Value provided is greater than the middleVal');
+    let result = binarySearchIndex(arr.slice(middleIdx + 1, arr.length), val);
+    if (result === -1) { return -1 }
+    result = middleIdx + 1 + result; // they are starting ahead of us
+    // console.log("going to return result:", result);
+    return result;
+  }
 
 }
+
+
+/**
+ *
+ */
 
 // you might find the above two problems easier if you change the function signature to:
 //
