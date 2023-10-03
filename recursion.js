@@ -95,6 +95,22 @@ function findIndex(arr, val) {
 
 function gatherStrings(obj) {
 
+
+  if (Object.keys(obj).length === 0) return [];
+  let result = [];
+
+  for (let key in obj) {
+    if (typeof obj[key] === 'string') {
+      result.push(obj[key]);
+    } else if (
+      typeof obj[key] === 'object'
+      && obj[key] !== null
+      && !Array.isArray(obj[key])
+      ){
+      result = result.concat(gatherStrings(obj[key]));
+    }
+  }
+  return result;
 }
 
 // FURTHER STUDY
@@ -103,7 +119,22 @@ function gatherStrings(obj) {
  * return true if val is in array, false if not present). */
 
 function binarySearch(arr, val) {
+  console.log('binarySearch called with arr:', arr)
+  console.log('binarySearch called with val:', val)
+  if (arr.length === 0) return false;
 
+  let middleIdx = Math.floor(arr.length / 2);
+  let middleVal = arr[middleIdx];
+  if (val === middleVal){
+    console.log('Match found, returning true')
+    return true;
+  } else if (middleVal > val){
+    console.log('Value provided is less than the middleVal')
+    return binarySearch(arr.slice(0, middleIdx), val)
+  } else {
+    console.log('Value provided is greater than the middleVal')
+    return binarySearch(arr.slice(middleIdx+1, arr.length), val)
+  }
 }
 
 

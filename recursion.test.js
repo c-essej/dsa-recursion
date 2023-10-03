@@ -123,7 +123,7 @@ describe("gatherStrings", function() {
 });
 
 describe("binarySearch", function () {
-  it("should find the index of a value in a sorted array", function() {
+  it("should return true if the value is found", function() {
     expect(binarySearch([1, 2, 3, 4], 4)).toEqual(true);
     expect(binarySearch([1, 2], 1)).toEqual(true);
     expect(binarySearch([1, 2, 3, 4, 5, 6, 7], 6)).toEqual(true);
